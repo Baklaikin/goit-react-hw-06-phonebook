@@ -1,5 +1,6 @@
 import { useState } from "react";
 import s from "components/PhoneForm/PhoneForm.module.css";
+import { v4 as uuidv4 } from "uuid";
 
 function PhoneForm({ onSubmit }) {
   const [name, setName] = useState("");
@@ -21,7 +22,8 @@ function PhoneForm({ onSubmit }) {
 
   const addToContacts = (e) => {
     e.preventDefault();
-    const data = { name, number };
+    const data = { id: `${uuidv4()}`, name, number };
+    console.log(`data from phoneform:`, data)
     onSubmit(data);
     resetForm();
   };
