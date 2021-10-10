@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { ADD, DELETE, FILTER } from "../redux/constants";
 
 const data = JSON.parse(localStorage.getItem("items"));
 let initialState;
@@ -26,7 +27,7 @@ if (data !== null) {
 
 const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case "phonebook/addToContacts":
+    case ADD:
       const isInList = state.contacts.items.find(
         (item) => item.number === payload.number
       );
@@ -43,13 +44,17 @@ const reducer = (state = initialState, { type, payload }) => {
         };
       }
 
-    case "phonebook/filterContacts":
+    case FILTER:
       return {
         ...state,
-        filter: payload,
+        contacts: {
+          ...state.contacts,
+          filter: state.contacts.filter,
+          payload,
+        },
       };
 
-    case "phoneBook/deleteContact":
+    case DELETE:
       const filtered = state.contacts.items.filter((contact) => {
         return contact.name !== payload;
       });

@@ -5,7 +5,11 @@ function FilterContacts({ onSubmit, value }) {
     <form className={s.findForm}>
       <label className={s.findFormLabel}>
         Find contacts by name
-        <input type="text" name="filter" value={value} onChange={onSubmit} />
+        <input type="text" name="filter" value={value} onChange={event => {
+          console.log(event.target.value)
+          onSubmit(event.target.value)
+        }
+        } />
       </label>
     </form>
   );

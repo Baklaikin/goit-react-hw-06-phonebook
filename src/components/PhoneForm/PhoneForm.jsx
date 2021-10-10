@@ -23,7 +23,6 @@ function PhoneForm({ onSubmit }) {
   const addToContacts = (e) => {
     e.preventDefault();
     const data = { id: `${uuidv4()}`, name, number };
-    console.log(`data from phoneform:`, data)
     onSubmit(data);
     resetForm();
   };

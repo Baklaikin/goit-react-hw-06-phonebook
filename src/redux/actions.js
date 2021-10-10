@@ -1,6 +1,8 @@
+import { ADD, DELETE, FILTER } from "../redux/constants";
+
 export const addToContacts = ({ id, name, number }) => {
   return {
-    type: "phonebook/addToContacts",
+    type: ADD,
     payload: {
       id,
       name,
@@ -9,16 +11,16 @@ export const addToContacts = ({ id, name, number }) => {
   };
 };
 
-export const setFilterField = (event) => {
+export const setFilterField = (value) => {
   return {
-    type: "phonebook/filterContacts",
-    payload: event.target.value,
+    type: FILTER,
+    payload: value,
   };
 };
 
 export const deleteContact = (id) => {
   return {
-    type: "phoneBook/deleteContact",
+    type: DELETE,
     payload: id,
   };
 };
