@@ -10,7 +10,7 @@ import {
 import { connect } from "react-redux";
 import "./App.css";
 
-function App({ value, filter, addContact, onDeleteItem }) {
+function App({ value, filter, addContact, onDeleteItem, filterFieldHandler }) {
   localStorage.setItem("items", JSON.stringify(value));
   return (
     <>
@@ -18,7 +18,7 @@ function App({ value, filter, addContact, onDeleteItem }) {
         <h1>Phonebook</h1>
         <PhoneForm onSubmit={addContact} />
         <h2>Contacts:</h2>
-        <FilterContacts value={filter} onSubmit={setFilterField} />
+        <FilterContacts value={filter} onSubmit={filterFieldHandler} />
         <ContactList
           contacts={value}
           filter={filter}
@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addContact: (value) => dispatch(addToContacts(value)),
     onDeleteItem: (value) => dispatch(deleteContact(value)),
-    setFilterField: (event) => dispatch(setFilterField(event)),
+    filterFieldHandler: (data) => dispatch(setFilterField(data)),
   };
 };
 

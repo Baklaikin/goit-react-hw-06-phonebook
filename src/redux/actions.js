@@ -11,10 +11,10 @@ export const addToContacts = ({ id, name, number }) => {
   };
 };
 
-export const setFilterField = (value) => {
+export const setFilterField = (data) => {
   return {
     type: FILTER,
-    payload: value,
+    payload: data,
   };
 };
 

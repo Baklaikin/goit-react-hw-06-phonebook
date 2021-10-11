@@ -49,8 +49,8 @@ const reducer = (state = initialState, { type, payload }) => {
         ...state,
         contacts: {
           ...state.contacts,
-          filter: state.contacts.filter,
-          payload,
+          items: [...state.contacts.items],
+          filter: payload,
         },
       };
 
@@ -70,6 +70,6 @@ const reducer = (state = initialState, { type, payload }) => {
       return state;
   }
 };
-const store = createStore(reducer, composeWithDevTools(applyMiddleware()));
+const store = createStore(reducer, composeWithDevTools());
 
 export default store;
