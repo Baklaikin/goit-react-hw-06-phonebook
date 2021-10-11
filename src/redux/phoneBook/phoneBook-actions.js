@@ -1,4 +1,4 @@
-import { ADD, DELETE, FILTER } from "../redux/constants";
+import { ADD, DELETE, FILTER } from "./phoneBook-constants";
 
 export const addToContacts = ({ id, name, number }) => {
   return {

@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { connect } from "react-redux";
+import { addToContacts } from "redux/phoneBook/phoneBook-actions";
 import s from "components/PhoneForm/PhoneForm.module.css";
 import { v4 as uuidv4 } from "uuid";
 
-function PhoneForm({ onSubmit }) {
+function PhoneForm({ addContact }) {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
@@ -20,10 +22,10 @@ function PhoneForm({ onSubmit }) {
     }
   };
 
-  const addToContacts = (e) => {
+  const addToContactsList = (e) => {
     e.preventDefault();
     const data = { id: `${uuidv4()}`, name, number };
-    onSubmit(data);
+    addContact(data);
     resetForm();
   };
 
@@ -33,7 +35,7 @@ function PhoneForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={addToContacts} className={s.form}>
+    <form onSubmit={addToContactsList} className={s.form}>
       <label className={s.formLabel}>
         Name
         <input
@@ -66,5 +68,7 @@ function PhoneForm({ onSubmit }) {
     </form>
   );
 }
-
-export default PhoneForm;
+const mapDispatchToProps = dispatch => ({
+  addContact: (data) => dispatch(addToContacts(data))
+})
+export default connect(null,mapDispatchToProps )(PhoneForm);

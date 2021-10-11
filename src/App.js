@@ -6,7 +6,7 @@ import {
   addToContacts,
   deleteContact,
   setFilterField,
-} from "../src/redux/actions";
+} from "./redux/phoneBook/phoneBook-actions";
 import { connect } from "react-redux";
 import "./App.css";
 
@@ -16,14 +16,10 @@ function App({ value, filter, addContact, onDeleteItem, filterFieldHandler }) {
     <>
       <MainContainer>
         <h1>Phonebook</h1>
-        <PhoneForm onSubmit={addContact} />
+        <PhoneForm />
         <h2>Contacts:</h2>
-        <FilterContacts value={filter} onSubmit={filterFieldHandler} />
-        <ContactList
-          contacts={value}
-          filter={filter}
-          onDeleteItem={onDeleteItem}
-        />
+        <FilterContacts />
+        <ContactList />
       </MainContainer>
     </>
   );

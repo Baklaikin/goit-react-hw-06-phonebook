@@ -1,5 +1,6 @@
 import s from "components/ContactList/ContactList.module.css";
-import store from "redux/store";
+import { connect } from "react-redux";
+import { deleteContact } from "redux/phoneBook/phoneBook-actions";
 
 const ContactList = ({contacts,filter, onDeleteItem }) => {
   const filtered = contacts.filter((contact) => contact.name.toLowerCase().trim().includes(filter.toLowerCase().trim()));
@@ -23,5 +24,13 @@ const ContactList = ({contacts,filter, onDeleteItem }) => {
     </ul>
   );
 };
+const mapStateToProps = state => ({
+  contacts: state.contacts.items,
+  filter:state.contacts.filter
+})
 
-export default ContactList;
+const mapDispatchToProps = dispatch => ({
+  onDeleteItem:(name)=>dispatch(deleteContact(name))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(ContactList);
