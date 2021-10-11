@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { createReducer } from "@reduxjs/toolkit";
 import { ADD, DELETE, FILTER } from "./phoneBook-constants";
 
 const data = JSON.parse(localStorage.getItem("items"));
@@ -14,36 +15,27 @@ if (data !== null) {
   ];
 }
 
-const itemsReducer = (state = initialState, { type, payload }) => {
-  switch (type) {
-    case ADD:
-      const isInList = state.find((item) => item.number === payload.number);
-      if (isInList) {
-        alert(`${payload.name} is already in contacts`);
-        return state;
-      } else {
-        return [...state, payload];
-      }
-
-    case DELETE:
-      const filtered = state.filter((contact) => {
-        return contact.name !== payload;
-      });
-      return [...filtered];
-
-    default:
+const itemsReducer = createReducer(initialState, {
+  [ADD]: (state, { payload }) => {
+    const isInList = state.find((item) => item.number === payload.number);
+    if (isInList) {
+      alert(`${payload.name} is already in contacts`);
       return state;
-  }
-};
+    } else {
+      return [...state, payload];
+    }
+  },
+  [DELETE]: (state, { payload }) => {
+    const filtered = state.filter((contact) => {
+      return contact.name !== payload;
+    });
+    return [...filtered];
+  },
+});
 
-const filterReducer = (state = "", { type, payload }) => {
-  switch (type) {
-    case FILTER:
-      return payload;
-    default:
-      return state;
-  }
-};
+const filterReducer = createReducer("", {
+  [FILTER]: (_, { payload }) => payload,
+});
 
 export const contactsReducer = combineReducers({
   items: itemsReducer,
